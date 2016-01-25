@@ -1,26 +1,26 @@
-const path = require('path');
 const webpack = require('webpack');
 
 module.exports = {
   entry : [
-    'webpack-dev-server/client?http://localhost:4000',
-    'webpack/hot/only-dev-server',
     "./client/app/router"
   ],
   output : {
     filename : 'index.js',
-    path : __dirname + '/dist',
-    publicPath: 'http://localhost:4000/'
+    path : __dirname + '/dist'
   },
-  plugins: [
-    new webpack.HotModuleReplacementPlugin()
+  plugins : [
+    new webpack.DefinePlugin({
+      'process.env': {
+        'NODE_ENV': JSON.stringify('production')
+      }
+    })
   ],
   module : {
     loaders : [
       {
         test : /\.js$/,
         exclude : /node_modules/,
-        loaders : ['react-hot', 'babel'],
+        loaders : ['babel'],
       }
     ],
   },

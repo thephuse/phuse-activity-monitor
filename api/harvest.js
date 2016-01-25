@@ -1,13 +1,33 @@
 'use strict';
-const request = require('request');
-const config = require('config');
-const url = require('url');
-const harvestUrl = config.get('credentials.url');
 
-const handle = function(callback) {
+const Cache = require('node-cache');
+const request = require('request');
+const url = require('url');
+const env = require('./env');
+
+const harvestUrl = env('HARVEST_WEBADDRESS');
+let cache = new Cache();
+
+const globalSettings = function() {
+  return {
+    auth : {
+      user : env('HARVEST_USERNAME'),
+      pass : env('HARVEST_PASSWORD')
+    },
+    headers: {
+      'User-Agent' : 'request',
+      'Content-Type' : 'application/json',
+      'Accept' : 'application/json'
+    }
+  }
+};
+
+const handle = function(callback, endpoint) {
   return function(error, response, body) {
     if (!error) {
-      callback(body);
+      let data = JSON.parse(body);
+      cache.set(endpoint, data, env('TTL'));
+      return callback(data);
     } else {
       throw new Error(error);
     }
@@ -15,20 +35,16 @@ const handle = function(callback) {
 };
 
 const get = function(endpoint, params) {
-  let settings = {
-    auth : {
-      user : config.get('credentials.username'),
-      pass : config.get('credentials.password')
-    },
-    headers: {
-      'User-Agent' : 'request',
-      'Content-Type' : 'application/json',
-      'Accept' : 'application/json'
+  let settings = globalSettings();
+  let endpointUrl = url.resolve(harvestUrl, endpoint);
+  let cached = cache.get(endpoint);
+
+  return function(callback) {
+    if (cached) {
+      return callback(cached);
+    } else {
+      return request.get(endpointUrl, settings, handle(callback, endpoint));
     }
-  };
-  return function() {
-    let callback = arguments[arguments.length - 1];
-    request.get(url.resolve(harvestUrl, endpoint), settings, handle(callback));
   }
 };
 

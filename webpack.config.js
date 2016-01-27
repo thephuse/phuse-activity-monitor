@@ -2,7 +2,7 @@ const webpack = require('webpack');
 
 module.exports = {
   entry : [
-    "./client/app/router"
+    "./client/index"
   ],
   output : {
     filename : 'index.js',

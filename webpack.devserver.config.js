@@ -5,7 +5,7 @@ module.exports = {
   entry : [
     'webpack-dev-server/client?http://localhost:4000',
     'webpack/hot/only-dev-server',
-    "./client/app/router"
+    "./client/index"
   ],
   output : {
     filename : 'index.js',

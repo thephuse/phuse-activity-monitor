@@ -1,32 +1,27 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { render } from 'react-dom';
-import { SortByValues, sortBy, setDates, fetchTimes } from '../actions'
+import { sortBy, setDates, fetchTimes } from '../actions'
+import sortByValues from '../helpers/sortByValues'
+import sort from '../helpers/sort'
 import User from '../components/User'
+import Sort from '../components/Sort'
+import DateFilters from '../components/DateFilters'
 
-class AppContainer extends Component {
-
-  constructor(props) {
-    super(props)
-    this.setSortBy = this.setSortBy.bind(this)
-  }
+class App extends Component {
 
   componentDidMount() {
     const { dispatch, times } = this.props
     dispatch(fetchTimes())
   }
 
-  setSortBy(event) {
-    const { dispatch } = this.props
-    dispatch(sortBy(SortByValues.NAME_DESC))
-  }
-
   render() {
-    const { times } = this.props
+    const { startDate, endDate, sortByValues, times } = this.props
 
     return (
       <div>
-        <button onClick={this.setSortBy} />
+        <DateFilters {...this.props} />
+        <Sort {...this.props} />
         <ul>
           {times.map(user => {
             return (
@@ -40,8 +35,8 @@ class AppContainer extends Component {
 
 }
 
-AppContainer.propTypes = {
-  sortBy : PropTypes.oneOf(Object.keys(SortByValues)),
+App.propTypes = {
+  sortBy : PropTypes.oneOf(sortByValues.map(i => i.value)),
   times : PropTypes.array.isRequired,
   isFetching : PropTypes.bool.isRequired,
   dispatch : PropTypes.func.isRequired
@@ -49,15 +44,17 @@ AppContainer.propTypes = {
 
 function mapStateToProps(state) {
 
-  const { sortBy, startDate, endDate, isFetching, times } = state.timesheets
+  const { sortBy, startDate, endDate, period, isFetching, times } = state.timesheets
 
   return {
     sortBy,
     startDate,
     endDate,
+    period,
     isFetching,
-    times
+    sortByValues,
+    times : sort(times, sortBy)
   }
 }
 
-export default connect(mapStateToProps)(AppContainer)
+export default connect(mapStateToProps)(App)

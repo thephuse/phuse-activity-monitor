@@ -3,13 +3,13 @@ import { Provider } from 'react-redux'
 import { render } from 'react-dom'
 import { fetchTimes } from './actions'
 import configureStore from './store'
-import AppContainer from './containers/AppContainer'
+import App from './containers/App'
 
 const store = configureStore()
 const documentRoot = document.getElementById('app')
 
 render((
   <Provider store={store}>
-    <AppContainer />
+    <App />
   </Provider>
 ), documentRoot);

@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import moment from 'moment'
 import throttle from 'throttleit'
-import debounce from 'debounce'
 import { sortBy, setDates, setPeriod } from '../actions'
 import periodValues from '../helpers/periodValues'
 
@@ -36,22 +35,22 @@ class DateFilters extends Component {
     dispatch(setPeriod(value))
   }
 
-  setDate(value) {
+  setDate(modifier) {
     const { startDate, period, dispatch } = this.props
     let newDate
     switch (period) {
       case 'YEAR' :
-        newDate = moment(startDate)[value](1, 'years')
+        newDate = moment(startDate)[modifier](1, 'years')
         break
       case 'MONTH' :
-        newDate = moment(startDate)[value](1, 'months')
+        newDate = moment(startDate)[modifier](1, 'months')
         break
       case 'WEEK' :
-        newDate = moment(startDate)[value](1, 'weeks')
+        newDate = moment(startDate)[modifier](1, 'weeks')
         break
       case 'DAY' :
       default :
-        newDate = moment(startDate)[value](1, 'days')
+        newDate = moment(startDate)[modifier](1, 'days')
         break
     }
     dispatch(setDates(newDate))
@@ -87,6 +86,13 @@ class DateFilters extends Component {
     )
   }
 
+}
+
+DateFilters.propTypes = {
+  startDate : PropTypes.string.isRequired,
+  endDate : PropTypes.string.isRequired,
+  period : PropTypes.string.isRequired,
+  dispatch : PropTypes.func.isRequired
 }
 
 export default DateFilters

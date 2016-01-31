@@ -8,6 +8,14 @@ import User from '../components/User'
 import Sort from '../components/Sort'
 import DateFilters from '../components/DateFilters'
 
+const styles = {
+  userList : {
+    listStyle : 'none',
+    maxWidth : 720,
+    margin : '0 auto'
+  }
+}
+
 class App extends Component {
 
   componentDidMount() {
@@ -21,8 +29,8 @@ class App extends Component {
     return (
       <div>
         <DateFilters {...this.props} />
-        <Sort {...this.props} />
-        <ul>
+        <ul style={styles.userList}>
+          <Sort {...this.props} />
           {times.map(user => {
             return (
               <User key={user.id} {...user}  />

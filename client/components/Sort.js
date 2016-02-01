@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react'
+import Radium from 'radium'
 import { sortBy } from '../actions'
 import sortByValues from '../helpers/sortByValues'
 
@@ -32,14 +33,19 @@ const styles = {
       top : '50%',
       width : 0,
       height : 0,
-      marginTop : -3,
+
       marginLeft : 10,
-      border : 'solid 4px transparent'
+      borderLeft : 'solid 4px transparent',
+      borderRight : 'solid 4px transparent',
+      borderTop : 'solid 4px transparent',
+      borderBottom : 'solid 4px transparent'
     },
     ascending : {
+      marginTop : -7,
       borderBottom : 'solid 4px #999'
     },
     descending : {
+      marginTop : 0,
       borderTop : 'solid 4px #999'
     }
   }
@@ -75,19 +81,19 @@ class Sort extends Component {
         <span style={styles.inlineUserDetail}></span>
         <span onClick={this.setSortBy.bind(this, 'FIRST_NAME')} style={styles.inlineUserDetail}>
           <span>Name</span>
-          <span style={Object.assign({}, styles.sort.base, this.getSortState('FIRST_NAME'))} />
+          <span style={[styles.sort.base, this.getSortState('FIRST_NAME')]} />
         </span>
         <span onClick={this.setSortBy.bind(this, 'TOTAL_HOURS')} style={styles.inlineUserDetail}>
           <span>Total</span>
-          <span style={Object.assign({}, styles.sort.base, this.getSortState('TOTAL_HOURS'))} />
+          <span style={[styles.sort.base, this.getSortState('TOTAL_HOURS')]} />
         </span>
         <span onClick={this.setSortBy.bind(this, 'BILLABLE_HOURS')} style={styles.inlineUserDetail}>
           <span>Billable</span>
-          <span style={Object.assign({}, styles.sort.base, this.getSortState('BILLABLE_HOURS'))} />
+          <span style={[styles.sort.base, this.getSortState('BILLABLE_HOURS')]} />
         </span>
         <span onClick={this.setSortBy.bind(this, 'BILLABLE_RATIO')} style={styles.inlineUserDetail}>
           <span>Billable Ratio</span>
-          <span style={Object.assign({}, styles.sort.base, this.getSortState('BILLABLE_RATIO'))} />
+          <span style={[styles.sort.base, this.getSortState('BILLABLE_RATIO')]} />
         </span>
       </li>
     )
@@ -100,4 +106,4 @@ Sort.propTypes = {
   dispatch : PropTypes.func.isRequired
 }
 
-export default Sort
+export default Radium(Sort)

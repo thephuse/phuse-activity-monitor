@@ -45,45 +45,45 @@ export function setPeriod(period) {
       type : SET_PERIOD,
       period
     })
-    dispatch(setDates(getState().timesheets.startDate))
+    dispatch(setDates())
   }
 }
 
-export function setDates(startDate) {
-  let dates
+export function setDates(selectedDate = new Date(), startOrEnd = 'start') {
   return (dispatch, getState) => {
-    const period = getState().timesheets.period
+    let { period, startDate, endDate } = getState().timesheets
+
     switch (period) {
       case 'YEAR' :
-        dates = {
-          startDate : moment(startDate).startOf('year').format(dateFormat),
-          endDate : moment(startDate).startOf('year').add(1, 'year').format(dateFormat)
-        }
+        startDate = moment(selectedDate).startOf('year').format(dateFormat)
+        endDate = moment(selectedDate).startOf('year').add(1, 'year').subtract(1, 'day').format(dateFormat)
         break
       case 'MONTH' :
-        dates = {
-          startDate : moment(startDate).startOf('month').format(dateFormat),
-          endDate : moment(startDate).startOf('month').add(1, 'month').format(dateFormat)
-        }
+        startDate = moment(selectedDate).startOf('month').format(dateFormat)
+        endDate = moment(selectedDate).startOf('month').add(1, 'month').subtract(1, 'day').format(dateFormat)
         break
       case 'WEEK' :
-        dates = {
-          startDate : moment(startDate).startOf('week').format(dateFormat),
-          endDate : moment(startDate).startOf('week').add(1, 'week').format(dateFormat)
-        }
+        startDate = moment(selectedDate).startOf('isoweek').format(dateFormat)
+        endDate = moment(selectedDate).startOf('isoweek').add(6, 'days').format(dateFormat)
         break
       case 'DAY' :
+        startDate = moment(selectedDate).format(dateFormat)
+        endDate = moment(selectedDate).format(dateFormat)
+        break
+      case 'CUSTOM' :
       default :
-        dates = {
-          startDate : moment(startDate).startOf('day').format(dateFormat),
-          endDate : moment(startDate).startOf('day').format(dateFormat)
+        if (startOrEnd === 'end') {
+          endDate = moment(selectedDate).format(dateFormat)
+        } else {
+          startDate = moment(selectedDate).format(dateFormat)
         }
         break
     }
+
     dispatch({
       type : SET_DATES,
-      startDate : dates.startDate,
-      endDate : dates.endDate
+      startDate,
+      endDate
     })
     dispatch(fetchTimes())
   }

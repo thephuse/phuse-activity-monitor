@@ -14,12 +14,6 @@ class DateFilters extends Component {
     this.setCustomDate = throttle(this.setCustomDate, 1000)
   }
 
-  setToday(value) {
-    const { dispatch } = this.props
-    dispatch(setPeriod('DAY'))
-    dispatch(setDates(moment()))
-  }
-
   setPeriod(value) {
     const { dispatch } = this.props
     dispatch(setPeriod(value))
@@ -87,9 +81,6 @@ class DateFilters extends Component {
             <span style={[styles.dateSkipperArrows.base, styles.dateSkipperArrows.left]} />
             <span style={styles.dateSkipper}>Earlier</span>
           </li>
-          <li style={styles.buttonListItem}>
-            <button onClick={this.setToday.bind(this)} style={styles.button}>Today</button>
-          </li>
           {periodValues.map(periodValue => {
             return (
               <li key={periodValue.value} style={styles.buttonListItem}>
@@ -103,10 +94,7 @@ class DateFilters extends Component {
             )
           })}
           <li style={styles.buttonListItem}>
-            <span
-              style={[styles.button, styles.buttonDisabled('CUSTOM' === period)]}>
-              Custom
-            </span>
+            <span style={[styles.button, styles.buttonDisabled('CUSTOM' === period), styles.buttonNotClickable]}>Custom</span>
           </li>
           <li style={styles.buttonListItem} onClick={this.setDate.bind(this, 'add')}>
             <span style={styles.dateSkipper}>Later</span>
@@ -185,6 +173,9 @@ const styles = {
         background : '#2B8CBE'
       }
     } : {}
+  },
+  buttonNotClickable : {
+    cursor : 'default'
   },
   dateSkipper : {
     textTransform : 'uppercase',

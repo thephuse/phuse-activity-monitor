@@ -5,7 +5,7 @@ const sessionParams = {
   resave: true,
   secret: env('SECRET_SESSION'),
   cookie: {
-    maxAge: 60 * 24 * 365
+    maxAge: 60 * 60 * 24 * 365
   }
 };
 
@@ -31,12 +31,10 @@ const serializeDeserialize = function(user, done) {
 };
 
 const ensureAuthenticated = function(req, res, next) {
-  console.log(req.isAuthenticated());
   return (req.isAuthenticated()) ? next() : res.redirect('/auth/harvest');
 };
 
 const ensureEndpointAuthenticated = function(req, res, next) {
-  console.log(req.isAuthenticated());
   return (req.isAuthenticated()) ? next() : res.status(403).send('Access Forbidden');
 };
 

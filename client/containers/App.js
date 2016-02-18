@@ -10,23 +10,7 @@ import sort from '../helpers/sort'
 import User from '../components/User'
 import Sort from '../components/Sort'
 import DateFilters from '../components/DateFilters'
-
-const styles = {
-  userList : {
-    listStyle : 'none',
-    maxWidth : 720,
-    margin : '0 auto',
-    padding : 0
-  },
-  noResults : {
-    maxWidth : 720,
-    padding : 0,
-    fontFamily : 'Helvetica Neue, Helvetica, Arial, sans-serif',
-    textAlign : 'center',
-    fontWeight : 200,
-    margin : '80px auto'
-  }
-}
+import PeriodStatistics from '../components/PeriodStatistics'
 
 class App extends Component {
 
@@ -57,6 +41,7 @@ class App extends Component {
           corners={0}
           color="#2B8CBE"
           speed={1.5}>
+          <PeriodStatistics times={times} />
           {( times.length
             ? <ul style={styles.userList}>
                 <Sort {...this.props} />
@@ -105,3 +90,20 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps)(Radium(App))
+
+const styles = {
+  userList : {
+    listStyle : 'none',
+    maxWidth : 720,
+    margin : '0 auto',
+    padding : 0
+  },
+  noResults : {
+    maxWidth : 720,
+    padding : 0,
+    fontFamily : 'Helvetica Neue, Helvetica, Arial, sans-serif',
+    textAlign : 'center',
+    fontWeight : 200,
+    margin : '80px auto'
+  }
+}

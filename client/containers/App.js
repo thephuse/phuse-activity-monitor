@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { render } from 'react-dom'
+import moment from 'moment'
 import Loader from 'react-loader'
 import Radium from 'radium'
 import { sortBy, setDates, fetchTimes } from '../actions'
@@ -16,6 +17,14 @@ const styles = {
     maxWidth : 720,
     margin : '0 auto',
     padding : 0
+  },
+  noResults : {
+    maxWidth : 720,
+    padding : 0,
+    fontFamily : 'Helvetica Neue, Helvetica, Arial, sans-serif',
+    textAlign : 'center',
+    fontWeight : 200,
+    margin : '80px auto'
   }
 }
 
@@ -27,7 +36,14 @@ class App extends Component {
   }
 
   render() {
-    const { startDate, endDate, sortByValues, isFetching, times } = this.props
+    const {
+      startDate,
+      endDate,
+      sortByValues,
+      isFetching,
+      times,
+      period
+    } = this.props
 
     return (
       <main>
@@ -41,14 +57,20 @@ class App extends Component {
           corners={0}
           color="#2B8CBE"
           speed={1.5}>
-          <ul style={styles.userList}>
-            <Sort {...this.props} />
-            {times.map(user => {
-              return (
-                <User key={user.id} {...user}  />
-              )
-            })}
-          </ul>
+          {( times.length
+            ? <ul style={styles.userList}>
+                <Sort {...this.props} />
+                {times.map(user => {
+                  return (
+                    <User key={user.id} {...user}  />
+                  )
+                })}
+              </ul>
+            : (period === 'DAY'
+              ? <div style={styles.noResults}>No times have been logged for {moment(startDate).format('MMMM Do, YYYY')}.</div>
+              : <div style={styles.noResults}>No times have been logged between {moment(startDate).format('MMMM Do, YYYY')} and {moment(endDate).format('MMMM Do, YYYY')}.</div>
+            )
+          )}
         </Loader>
       </main>
     )
@@ -57,6 +79,10 @@ class App extends Component {
 }
 
 App.propTypes = {
+  startDate : PropTypes.string.isRequired,
+  endDate : PropTypes.string.isRequired,
+  period : PropTypes.string.isRequired,
+  sortByValues : PropTypes.array.isRequired,
   sortBy : PropTypes.oneOf(sortByValues.map(i => i.value)),
   times : PropTypes.array.isRequired,
   isFetching : PropTypes.bool.isRequired,

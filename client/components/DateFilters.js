@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import moment from 'moment'
 import throttle from 'throttleit'
 import Radium from 'radium'
-import { sortBy, setDates, setPeriod } from '../actions'
+import { sortBy, setDates, setPeriod, fetchTimes } from '../actions'
 import periodValues from '../helpers/periodValues'
 
 class DateFilters extends Component {
@@ -17,13 +17,16 @@ class DateFilters extends Component {
   setPeriod(value) {
     const { dispatch } = this.props
     dispatch(setPeriod(value))
+    dispatch(setDates())
+    dispatch(fetchTimes())
   }
 
   setCustomDate(startOrEnd, event) {
     const { dispatch } = this.props
     if (event.target && event.target.value) {
-      dispatch(setDates(moment(event.target.value), startOrEnd))
       dispatch(setPeriod('CUSTOM'))
+      dispatch(setDates(moment(event.target.value), startOrEnd))
+      dispatch(fetchTimes())
     }
   }
 
@@ -50,6 +53,7 @@ class DateFilters extends Component {
         break
     }
     dispatch(setDates(newDate))
+    dispatch(fetchTimes())
   }
 
   render() {
@@ -64,13 +68,13 @@ class DateFilters extends Component {
         <div style={styles.dateInputContainer}>
           <input
             type="date"
-            style={styles.dateInput}
+            style={[styles.dateInput, styles.startDate]}
             value={moment(startDate).format('YYYY-MM-DD')}
             max={moment(endDate).format('YYYY-MM-DD')}
             onChange={this.setCustomDate.bind(this, 'start')} />
           <input
             type="date"
-            style={styles.dateInput}
+            style={[styles.dateInput, styles.endDate]}
             value={moment(endDate).format('YYYY-MM-DD')}
             min={moment(startDate).format('YYYY-MM-DD')}
             max={moment().format('YYYY-MM-DD')}
@@ -129,12 +133,19 @@ const styles = {
     display : 'flex'
   },
   dateInput : {
-    flex : 1,
     WebkitAppearance : 'none',
     border : 0,
     fontFamily : 'Helvetica Neue, Helvetica, Arial, sans-serif',
-    fontSize : 24,
-    fontWeight : 200
+    fontSize : 28,
+    fontWeight : 100,
+    background : 'transparent',
+    borderRadius : 16
+  },
+  startDate : {
+    float : 'left'
+  },
+  endDate : {
+    float : 'right'
   },
   periodList : {
     display : 'flex',

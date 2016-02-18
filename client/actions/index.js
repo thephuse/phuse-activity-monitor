@@ -8,7 +8,6 @@ export const SET_PERIOD = 'SET_PERIOD'
 export const REQUEST_TIMES = 'REQUEST_TIMES'
 export const RECEIVE_TIMES = 'RECEIVE_TIMES'
 
-
 function requestTimes({ startDate, endDate }) {
   return {
     type : REQUEST_TIMES,
@@ -40,12 +39,9 @@ export function sortBy(sort) {
 }
 
 export function setPeriod(period) {
-  return (dispatch, getState) => {
-    dispatch({
-      type : SET_PERIOD,
-      period
-    })
-    dispatch(setDates())
+  return {
+    type : SET_PERIOD,
+    period
   }
 }
 
@@ -72,10 +68,14 @@ export function setDates(selectedDate = new Date(), startOrEnd = 'start') {
         break
       case 'CUSTOM' :
       default :
-        if (startOrEnd === 'end') {
-          endDate = moment(selectedDate).format(dateFormat)
-        } else {
-          startDate = moment(selectedDate).format(dateFormat)
+        switch (startOrEnd) {
+          case 'end' :
+            endDate = moment(selectedDate).format(dateFormat)
+            break
+          case 'start' :
+          default :
+            startDate = moment(selectedDate).format(dateFormat)
+            break
         }
         break
     }
@@ -85,7 +85,6 @@ export function setDates(selectedDate = new Date(), startOrEnd = 'start') {
       startDate,
       endDate
     })
-    dispatch(fetchTimes())
   }
 }
 

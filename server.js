@@ -21,6 +21,7 @@ app.use(cookieParser());
 app.use(session(auth.sessionParams));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(express.static(__dirname + '/public'));
 
 passport.use(HARVEST, new OAuth2Strategy(auth.authCredentials, auth.verify));
 passport.serializeUser(auth.serializeDeserialize);

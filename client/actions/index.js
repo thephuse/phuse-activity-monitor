@@ -92,7 +92,7 @@ export function fetchTimes() {
   return (dispatch, getState) => {
     let dates = requestTimes(generateDates(getState()));
     dispatch(requestTimes(dates))
-    return fetch(`http://localhost:3000/times/${dates.startDate}/${dates.endDate}`)
+    return fetch(`http://127.0.0.1:1234/times/${dates.startDate}/${dates.endDate}`, { credentials: 'include' })
       .then(response => response.json())
       .then(json => json.map(item => item.user).filter(item => (item.total > 0)))
       .then(times => dispatch(receiveTimes(times)))

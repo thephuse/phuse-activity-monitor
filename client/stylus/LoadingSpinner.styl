@@ -1,0 +1,173 @@
+:local(.loader)
+  position fixed
+  z-index 3
+  top 0
+  right 0
+  bottom 0
+  left 0
+
+:local(.base)
+  font-size 80px
+  width 1em
+  height 1em
+  border-radius 50%
+  background-color #DFDFDF
+  box-sizing border-box
+  position absolute
+  top 50%
+  left 50%
+  transform translate(-50%,-50%)
+
+:local(.slice)
+  clip rect(auto, auto, auto, auto)
+  position absolute
+  width 1em
+  height 1em
+  box-sizing content-box
+
+:local(.bar)
+  clip rect(0em, 0.5em, 1em, 0em)
+  position absolute
+  border 0.03em solid #2B8CBE
+  width 0.94em
+  height 0.94em
+  border-radius 50%
+  animation rotateFill 12s ease-in-out infinite
+  animation-fill-mode forwards
+
+:local(.center)
+  position absolute
+  top 0.03em
+  left 0.03em
+  line-height 0.94em
+  display block
+  border-radius 50%
+  background-color white
+  width 0.94em
+  height 0.94em
+  text-align center
+
+:local(.hourglass)
+  width 0.5em
+  height 0.5em
+  background-color #DFDFDF
+  position absolute
+  top 50%
+  left 50%
+  margin-top -0.25em
+  margin-left -0.25em
+  animation rotateHourglass 6s ease-in-out infinite
+  animation-fill-mode forwards
+  backface-visibility hidden
+  overflow hidden
+
+  &:before
+  &:after
+    display block
+    content ""
+    width 0
+    height 0
+    position absolute
+    top 0
+    left 0
+    z-index 2
+
+  &:before
+    border-top solid 0.25em transparent
+    border-bottom solid 0.25em transparent
+    border-right solid 0.25em transparent
+    border-left solid 0.25em white
+
+  &:after
+    border-top solid 0.25em transparent
+    border-bottom solid 0.25em transparent
+    border-left solid 0.25em transparent
+    border-right solid 0.25em white
+
+:local(.sand)
+  width 0.5em
+  height 0.25em
+  position absolute
+  z-index 1
+  background-color #2B8CBE
+
+:local(.sandTop)
+  @extend :local(.sand)
+  left 0
+  top 0
+  animation trickleDown 6s ease-in-out infinite
+  animation-fill-mode forwards
+
+:local(.sandBottom)
+  @extend :local(.sand)
+  left 0
+  bottom 0
+  animation trickleUp 6s ease-in-out infinite
+  animation-fill-mode forwards
+
+@keyframes trickleDown
+  from
+    transform scale3d(1,1,1)
+    transform-origin 0 100%
+  25%
+    transform scale3d(1,0,1)
+    transform-origin 0 100%
+  50%
+    transform scale3d(1,0,1)
+    transform-origin 0 0
+  80%
+    transform scale3d(1,1,1)
+    transform-origin 0 0
+  to
+    transform scale3d(1,1,1)
+    transform-origin 0 100%
+
+@keyframes trickleUp
+  from
+    transform scale3d(1,0,1)
+    transform-origin 0 100%
+  25%
+    transform scale3d(1,1,1)
+    transform-origin 0 100%
+  50%
+    transform scale3d(1,1,1)
+    transform-origin 0 0
+  75%
+    transform scale3d(1,0,1)
+    transform-origin 0 0
+  to
+    transform scale3d(1,0,1)
+    transform-origin 0 100%
+
+@keyframes rotateFill
+  from
+    transform rotate3d(0,0,1,-45deg)
+  12.5%
+    transform rotate3d(0,0,1,-45deg)
+  25%
+    transform rotate3d(0,0,1,-135deg)
+  37.5%
+    transform rotate3d(0,0,1,-135deg)
+  50%
+    transform rotate3d(0,0,1,-225deg)
+  62.5%
+    transform rotate3d(0,0,1,-225deg)
+  75%
+    transform rotate3d(0,0,1,-315deg)
+  87.5%
+    transform rotate3d(0,0,1,-315deg)
+  to
+    transform rotate3d(0,0,1,-405deg)
+
+@keyframes rotateHourglass
+  from
+    transform rotate3d(0,0,1,0deg)
+  25%
+    transform rotate3d(0,0,1,0deg)
+  50%
+    transform rotate3d(0,0,1,180deg)
+  75%
+    transform rotate3d(0,0,1,180deg)
+  to
+    transform rotate3d(0,0,1,360deg)
+

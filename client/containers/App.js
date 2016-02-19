@@ -2,13 +2,13 @@ import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { render } from 'react-dom'
 import moment from 'moment'
-import Loader from 'react-loader'
 import Radium from 'radium'
 import { sortBy, setDates, fetchTimes } from '../actions'
 import sortByValues from '../helpers/sortByValues'
 import sort from '../helpers/sort'
 import User from '../components/User'
 import Sort from '../components/Sort'
+import Loader from '../components/Loader'
 import DateFilters from '../components/DateFilters'
 import PeriodStatistics from '../components/PeriodStatistics'
 
@@ -32,15 +32,7 @@ class App extends Component {
     return (
       <main>
         <DateFilters {...this.props} />
-        <Loader
-          loaded={!isFetching}
-          lines={17}
-          length={3}
-          width={2}
-          radius={15}
-          corners={0}
-          color="#2B8CBE"
-          speed={1.5}>
+        <Loader loading={isFetching}>
           <PeriodStatistics times={times} />
           {( times.length
             ? <ul style={styles.userList}>

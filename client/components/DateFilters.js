@@ -9,9 +9,9 @@ class DateFilters extends Component {
 
   constructor() {
     super()
-    this.setPeriod = throttle(this.setPeriod, 1000)
-    this.setDate = throttle(this.setDate, 1000)
-    this.setCustomDate = throttle(this.setCustomDate, 1000)
+    // this.setPeriod = throttle(this.setPeriod, 1000)
+    // this.setDate = throttle(this.setDate, 1000)
+    // this.setCustomDate = throttle(this.setCustomDate, 1000)
   }
 
   setPeriod(value) {

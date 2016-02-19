@@ -20,7 +20,12 @@ module.exports = {
       {
         test : /\.js$/,
         exclude : /node_modules/,
-        loaders : ['babel']
+        loader : 'babel'
+      },
+      {
+        test : /\.styl$/,
+        exclude : /node_modules/,
+        loader : 'style-loader!css-loader!stylus-loader'
       }
     ],
   },

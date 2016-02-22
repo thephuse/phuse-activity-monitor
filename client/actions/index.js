@@ -8,7 +8,7 @@ export const SET_PERIOD = 'SET_PERIOD'
 export const REQUEST_TIMES = 'REQUEST_TIMES'
 export const RECEIVE_TIMES = 'RECEIVE_TIMES'
 
-function requestTimes({ startDate, endDate }) {
+export function requestTimes({ startDate, endDate }) {
   return {
     type : REQUEST_TIMES,
     startDate,
@@ -16,7 +16,7 @@ function requestTimes({ startDate, endDate }) {
   }
 }
 
-function receiveTimes(times) {
+export function receiveTimes(times) {
   return {
     type : RECEIVE_TIMES,
     times,
@@ -24,7 +24,7 @@ function receiveTimes(times) {
   }
 }
 
-function generateDates(state) {
+export function generateDates(state) {
   return {
     startDate : state.timesheets.startDate,
     endDate : state.timesheets.endDate
@@ -92,7 +92,7 @@ export function fetchTimes() {
   return (dispatch, getState) => {
     let dates = requestTimes(generateDates(getState()));
     dispatch(requestTimes(dates))
-    return fetch(`http://127.0.0.1:1234/times/${dates.startDate}/${dates.endDate}`, { credentials: 'include' })
+    return fetch(`//${location.host}${location.pathname}times/${dates.startDate}/${dates.endDate}`, { credentials: 'include' })
       .then(response => response.json())
       .then(json => json.map(item => item.user).filter(item => (item.total > 0)))
       .then(times => dispatch(receiveTimes(times)))

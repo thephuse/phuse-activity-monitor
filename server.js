@@ -31,7 +31,7 @@ passport.serializeUser(auth.serializeDeserialize);
 passport.deserializeUser(auth.serializeDeserialize);
 
 app.get('/', auth.ensureAuthenticated, (req, res) => {
-  let file = (env('NODE_ENV') === 'production' ? 'index.dist.html' : 'index.html');
+  let file = (process.env.NODE_ENV && process.env.NODE_ENV === 'production' ? 'index.dist.html' : 'index.html');
   res.sendFile(file, { root: './static' });
 });
 

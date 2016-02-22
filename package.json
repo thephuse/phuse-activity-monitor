@@ -8,9 +8,9 @@
   },
   "scripts": {
     "prestart": "npm run deploy",
-    "start": "NODE_ENV=production node server",
+    "start": "npm run server",
     "dev": "node webpack.devserver",
-    "server": "NODE_ENV=development node server",
+    "server": "node server",
     "deploy": "NODE_ENV=production webpack -p --config webpack.config.js",
     "test": "babel-tape-runner ./test/**/*"
   },

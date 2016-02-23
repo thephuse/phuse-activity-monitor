@@ -1,5 +1,6 @@
 'use strict';
 
+const newrelic = require('newrelic');
 const express = require('express');
 const session = require('express-session');
 const passport = require('passport');

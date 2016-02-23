@@ -40,6 +40,7 @@
     "jade": "^1.11.0",
     "md5": "^2.0.0",
     "moment": "^2.11.1",
+    "newrelic": "^1.25.3",
     "node-cache": "^3.0.1",
     "passport": "^0.3.2",
     "passport-oauth2": "^1.2.0",

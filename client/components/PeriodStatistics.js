@@ -91,9 +91,7 @@ const styles = {
     padding : '0 5px',
     boxSizing : 'border-box'
   },
-  hoursFigure : {
-    fontFamily : 'Helvetica Neue, Helvetica, Arial, sans-serif'
-  },
+  hoursFigure : {},
   base : {
     position : 'relative',
     fontSize : 100,
@@ -148,7 +146,6 @@ const styles = {
   },
   text : {
     display : 'inline-block',
-    fontFamily : 'Helvetica Neue, Helvetica, Arial, sans-serif',
     fontSize : '0.32em',
     lineHeight : '1',
     fontWeight : 100,
@@ -160,7 +157,6 @@ const styles = {
     width : '100%'
   },
   hoursText : {
-    fontFamily : 'Helvetica Neue, Helvetica, Arial, sans-serif',
     fontSize : '0.11em',
     fontWeight : 200,
     textTransform : 'uppercase',

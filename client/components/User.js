@@ -44,7 +44,6 @@ const styles = {
     alignItems : 'center',
     borderBottom : '1px solid #efefef',
     boxSizing : 'border-box',
-    fontFamily : 'Helvetica Neue, Helvetica, Arial, sans-serif',
     fontWeight : 200,
     padding : 10,
     fontSize : 14

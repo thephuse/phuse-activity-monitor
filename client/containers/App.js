@@ -93,7 +93,6 @@ const styles = {
   noResults : {
     maxWidth : 720,
     padding : 0,
-    fontFamily : 'Helvetica Neue, Helvetica, Arial, sans-serif',
     textAlign : 'center',
     fontWeight : 200,
     margin : '80px auto'

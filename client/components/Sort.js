@@ -10,7 +10,6 @@ const styles = {
     alignItems : 'center',
     boxSizing : 'border-box',
     padding : 10,
-    fontFamily : 'Helvetica Neue, Helvetica, Arial, sans-serif',
     textTransform : 'uppercase',
     fontWeight : 200,
     borderBottom : '1px solid #cfcfcf',

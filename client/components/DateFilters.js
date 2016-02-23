@@ -135,7 +135,6 @@ const styles = {
   dateInput : {
     WebkitAppearance : 'none',
     border : 0,
-    fontFamily : 'Helvetica Neue, Helvetica, Arial, sans-serif',
     fontSize : 28,
     fontWeight : 100,
     background : 'transparent',
@@ -159,7 +158,6 @@ const styles = {
   },
   buttonListItem : {
     listStyle : 'none',
-    fontFamily : 'Helvetica Neue, Helvetica, Arial, sans-serif',
     fontSize : 14,
     fontWeight : 200
   },
@@ -167,7 +165,6 @@ const styles = {
     display : 'block',
     border : 'none',
     WebkitAppearance : 'none',
-    fontFamily : 'Helvetica Neue, Helvetica, Arial, sans-serif',
     fontSize : 15,
     fontWeight : 200,
     cursor : 'pointer',

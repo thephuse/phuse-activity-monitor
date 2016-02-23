@@ -34,14 +34,14 @@ class PeriodStatistics extends Component {
 
         <div style={styles.periodStatistic}>
           <div style={[styles.base, styles.lightBase]}>
-            <span style={[styles.text, styles.circleText]}>{total.toFixed(1)}</span>
+            <span style={[styles.text, styles.circleText, styles.textSize(total.toFixed(1))]}>{total.toFixed(1)}</span>
             <span style={[styles.hoursText, styles.ratioHoursText]}>total</span>
           </div>
         </div>
 
         <div style={styles.periodStatistic}>
           <div style={[styles.base, styles.lightBase]}>
-            <span style={[styles.text, styles.circleText]}>{billableTotal.toFixed(1)}</span>
+            <span style={[styles.text, styles.circleText, styles.textSize(billableTotal.toFixed(1))]}>{billableTotal.toFixed(1)}</span>
             <span style={[styles.hoursText, styles.ratioHoursText]}>billable</span>
           </div>
         </div>
@@ -149,6 +149,11 @@ const styles = {
     fontSize : '0.32em',
     lineHeight : '1',
     fontWeight : 100,
+  },
+  textSize : function(text) {
+    return {
+      fontSize : `${Math.min(0.32, 1.75/text.toString().length)}em`
+    }
   },
   circleText : {
     position : 'absolute',

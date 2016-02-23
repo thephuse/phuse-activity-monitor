@@ -30,25 +30,38 @@ class PeriodStatistics extends Component {
     } = getBillablePercentage(times)
 
     return (
-      <section>
+      <section style={styles.periodStatisticsWrapper}>
 
-        <div>
-          <span style={styles.hoursFigure}>{total.toFixed(1)}</span>
-          <span style={styles.hoursText}>total</span>
+        <div style={styles.periodStatistic}>
+          <div style={[styles.base, styles.lightBase]}>
+            <span style={[styles.text, styles.circleText]}>{total.toFixed(1)}</span>
+            <span style={[styles.hoursText, styles.ratioHoursText]}>total</span>
+          </div>
         </div>
 
-        <div>
-          <span style={styles.hoursFigure}>{billableTotal.toFixed(1)}</span>
-          <span style={styles.hoursText}>billable</span>
+        <div style={styles.periodStatistic}>
+          <div style={[styles.base, styles.lightBase]}>
+            <span style={[styles.text, styles.circleText]}>{billableTotal.toFixed(1)}</span>
+            <span style={[styles.hoursText, styles.ratioHoursText]}>billable</span>
+          </div>
         </div>
 
-        <div style={styles.base}>
-          <div style={styles.slice}>
-            <div style={[styles.bar, {transform : `rotate(${360/100*billablePercentage}deg)`}]}></div>
-            <div style={[styles.fill, {transform : (billablePercentage >= 50 ? 'rotate(180deg)' : 'rotate(0deg)') }]}></div>
-            <div style={styles.center}>
-              <span style={styles.text}>{Math.round(billablePercentage)}%</span>
-              <span style={[styles.hoursText, styles.ratioHoursText]}>ratio</span>
+        <div style={styles.periodStatistic}>
+          <div style={styles.base}>
+            <div style={styles.slice}>
+              <div style={[styles.bar, {
+                display : (billablePercentage === 0 ? 'none' : 'block'),
+                transform : `rotate(${360/100*billablePercentage}deg)`
+              }]}></div>
+              <div style={[styles.fill, {
+                display : (billablePercentage === 0 ? 'none' : 'block'),
+                transform : (billablePercentage >= 50 ? 'rotate(180deg)' : 'rotate(0deg)'),
+                borderColor : (billablePercentage <= 50 ? '#DFDFDF' : '#2B8CBE')
+              }]}></div>
+              <div style={styles.center}>
+                <span style={[styles.text, styles.circleText]}>{Math.round(billablePercentage)}%</span>
+                <span style={[styles.hoursText, styles.ratioHoursText]}>ratio</span>
+              </div>
             </div>
           </div>
         </div>
@@ -62,23 +75,24 @@ class PeriodStatistics extends Component {
 
 export default Radium(PeriodStatistics)
 
-const ratioFontSize = 32
-
 const styles = {
+  periodStatisticsWrapper : {
+    maxWidth : 720,
+    margin : '0 auto 30px',
+    display : 'block',
+    '@media (max-width: 480px)' : {
+      margin : '0 auto 20px'
+    }
+  },
+  periodStatistic : {
+    display : 'inline-block',
+    textAlign : 'center',
+    width : 'calc(100% / 3)',
+    padding : '0 5px',
+    boxSizing : 'border-box'
+  },
   hoursFigure : {
     fontFamily : 'Helvetica Neue, Helvetica, Arial, sans-serif'
-  },
-  hoursText : {
-    fontFamily : 'Helvetica Neue, Helvetica, Arial, sans-serif',
-    fontSize : 11,
-    fontWeight : 200,
-    textTransform : 'uppercase',
-    display : 'block'
-  },
-  ratioHoursText : {
-    marginTop : ratioFontSize * 0.72,
-    letterSpacing : 0.75,
-    color : '#999'
   },
   base : {
     position : 'relative',
@@ -87,7 +101,14 @@ const styles = {
     height : '1em',
     borderRadius : '50%',
     backgroundColor : '#DFDFDF',
-    boxSizing : 'border-box'
+    boxSizing : 'border-box',
+    display : 'inline-block',
+    '@media (max-width: 480px)' : {
+      fontSize : 90
+    }
+  },
+  lightBase : {
+    backgroundColor : '#F3F3F3'
   },
   slice : {
     clip : 'rect(auto, auto, auto, auto)',
@@ -107,7 +128,8 @@ const styles = {
   fill : {
     borderRadius : '50%',
     position : 'absolute',
-    border : '0.03em solid #2B8CBE',
+    borderWidth : '0.03em',
+    borderStyle : 'solid',
     width : '0.94em',
     height : '0.94em',
     clip : 'rect(0em, 0.5em, 1em, 0em)'
@@ -127,13 +149,30 @@ const styles = {
   text : {
     display : 'inline-block',
     fontFamily : 'Helvetica Neue, Helvetica, Arial, sans-serif',
-    fontSize : ratioFontSize,
+    fontSize : '0.32em',
     lineHeight : '1',
-    marginTop : '-0.5em',
     fontWeight : 100,
+  },
+  circleText : {
     position : 'absolute',
-    top : '50%',
+    bottom : '40%',
     left : 0,
     width : '100%'
-  }
+  },
+  hoursText : {
+    fontFamily : 'Helvetica Neue, Helvetica, Arial, sans-serif',
+    fontSize : '0.11em',
+    fontWeight : 200,
+    textTransform : 'uppercase',
+    display : 'block'
+  },
+  ratioHoursText : {
+    display : 'block',
+    position : 'absolute',
+    top : '65%',
+    letterSpacing : 0.75,
+    width : '100%',
+    color : '#999',
+    lineHeight : 1
+  },
 }

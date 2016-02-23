@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { render } from 'react-dom'
 import moment from 'moment'
-import Radium from 'radium'
+import Radium, { StyleRoot } from 'radium'
 import { sortBy, setDates, fetchTimes } from '../actions'
 import sortByValues from '../helpers/sortByValues'
 import sort from '../helpers/sort'
@@ -30,7 +30,7 @@ class App extends Component {
     } = this.props
 
     return (
-      <main>
+      <StyleRoot>
         <DateFilters {...this.props} />
         <Loader loading={isFetching}>
           <PeriodStatistics times={times} />
@@ -49,7 +49,7 @@ class App extends Component {
             )
           )}
         </Loader>
-      </main>
+      </StyleRoot>
     )
   }
 

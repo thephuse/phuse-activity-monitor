@@ -58,7 +58,11 @@ const styles = {
   avatar : {
     width : 60,
     height : 60,
-    borderRadius : '50%'
+    borderRadius : '50%',
+    '@media (max-width: 480px)' : {
+      width : 50,
+      height : 50
+    }
   },
   name : {
 

@@ -17,6 +17,8 @@ const HARVEST = 'harvest';
 
 const app = express();
 
+app.set('view engine', 'jade');
+
 app.use(bodyParser.urlencoded({ extended : true }));
 app.use(bodyParser.json());
 app.use(cookieParser());
@@ -31,8 +33,9 @@ passport.serializeUser(auth.serializeDeserialize);
 passport.deserializeUser(auth.serializeDeserialize);
 
 app.get('/', auth.ensureAuthenticated, (req, res) => {
-  let file = (process.env.NODE_ENV && process.env.NODE_ENV === 'production' ? 'index.dist.html' : 'index.html');
-  res.sendFile(file, { root: './static' });
+  res.render('index', {
+    isProduction : (process.env.NODE_ENV && process.env.NODE_ENV === 'production')
+  });
 });
 
 app.get('/auth/harvest', passport.authenticate(HARVEST));

@@ -97,7 +97,7 @@ class DateFilters extends Component {
               </li>
             )
           })}
-          <li style={styles.buttonListItem}>
+          <li style={[styles.buttonListItem, styles.superfluousOnMobile]}>
             <span style={[styles.button, styles.buttonDisabled('CUSTOM' === period), styles.buttonNotClickable]}>Custom</span>
           </li>
           <li style={styles.buttonListItem} onClick={this.setDate.bind(this, 'add')}>
@@ -150,11 +150,12 @@ const styles = {
   periodList : {
     display : 'flex',
     listStyle : 'none',
-    maxWidth : 720,
+    maxWidth : 760,
+    padding : '0 20px',
     margin : '0 auto',
     alignItems : 'center',
     justifyContent : 'space-between',
-    padding : 0
+    boxSizing : 'border-box'
   },
   buttonListItem : {
     listStyle : 'none',
@@ -174,7 +175,7 @@ const styles = {
     outline : 0,
     borderRadius : 15,
     padding : '4px 10px',
-    color : '#2B8CBE',
+    color : '#2B8CBE'
   },
   buttonDisabled : function(state) {
     return (state) ? {
@@ -192,7 +193,10 @@ const styles = {
     textTransform : 'uppercase',
     fontSize : 14,
     cursor : 'pointer',
-    color : '#555'
+    color : '#555',
+    '@media (max-width: 480px)' : {
+      display : 'none'
+    }
   },
   dateSkipperArrows : {
     base : {
@@ -211,6 +215,11 @@ const styles = {
     right : {
       borderLeft : '6px solid #555',
       marginLeft : 8
+    }
+  },
+  superfluousOnMobile : {
+    '@media (max-width: 480px)' : {
+      display : 'none'
     }
   }
 }

@@ -1,0 +1,17 @@
+doctype html
+html(lang="en", style="overflow-y: scroll;")
+  head
+    meta(charset="utf-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title= 'Phuse Activity Monitor'
+    link(rel="shortcut icon", href="/favicon.ico")
+    style.
+      input[type="date"]::-webkit-inner-spin-button {
+        display: none;
+      }
+  body(style="margin: 0;")
+    #app
+    if isProduction
+      script(src="/index.js")
+    else
+      script(src="http://localhost:4000/index.js")

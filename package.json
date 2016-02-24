@@ -7,11 +7,10 @@
     "node": "5.6.0"
   },
   "scripts": {
-    "prestart": "npm run deploy",
     "start": "npm run server",
     "dev": "node webpack.devserver",
     "server": "node server",
-    "deploy": "./node_modules/.bin/webpack -p --config ./webpack.config.js",
+    "postinstall": "./node_modules/.bin/webpack -p --config ./webpack.config.js",
     "test": "babel-tape-runner ./test/**/*"
   },
   "private": true,

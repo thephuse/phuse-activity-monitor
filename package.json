@@ -10,7 +10,8 @@
     "start": "npm run server",
     "dev": "node webpack.devserver",
     "server": "node server",
-    "postinstall": "./node_modules/.bin/webpack -p --config ./webpack.config.js",
+    "build": "./node_modules/.bin/webpack -p --config ./webpack.config.js",
+    "postinstall": "npm run build",
     "test": "babel-tape-runner ./test/**/*"
   },
   "private": true,

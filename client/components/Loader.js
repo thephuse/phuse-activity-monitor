@@ -10,8 +10,6 @@ class Loader extends Component {
       children
     } = this.props
 
-    console.log(loading)
-
     return (loading ? <LoaderSpinner /> : <span>{children}</span>)
   }
 

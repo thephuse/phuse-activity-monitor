@@ -6,10 +6,12 @@ import Radium, { StyleRoot } from 'radium'
 import { sortBy, setDates, fetchTimes } from '../actions'
 import sortByValues from '../helpers/sortByValues'
 import sort from '../helpers/sort'
+
 import User from '../components/User'
 import Sort from '../components/Sort'
 import Loader from '../components/Loader'
 import DateFilters from '../components/DateFilters'
+import PeriodFilters from '../components/PeriodFilters'
 import PeriodStatistics from '../components/PeriodStatistics'
 
 class App extends Component {
@@ -31,7 +33,10 @@ class App extends Component {
 
     return (
       <StyleRoot>
-        <DateFilters {...this.props} />
+        <nav style={styles.dateNav}>
+          <DateFilters {...this.props} />
+          <PeriodFilters {...this.props} />
+        </nav>
         <Loader loading={isFetching}>
           <PeriodStatistics times={times} />
           {( times.length
@@ -84,6 +89,12 @@ function mapStateToProps(state) {
 export default connect(mapStateToProps)(Radium(App))
 
 const styles = {
+  dateNav : {
+    borderBottom : '1px solid #efefef',
+    padding : '30px 0',
+    margin : '0 0 30px',
+    background : '#f9f9f9'
+  },
   userList : {
     listStyle : 'none',
     maxWidth : 720,

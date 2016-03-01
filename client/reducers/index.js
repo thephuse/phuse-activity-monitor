@@ -6,6 +6,7 @@ import {
   SORT_BY,
   REQUEST_TIMES,
   RECEIVE_TIMES,
+  OPEN_CALENDAR
 } from '../actions'
 import sortByValues from '../helpers/sortByValues'
 import periodValues from '../helpers/periodValues'
@@ -15,6 +16,7 @@ const initialState = {
   sortBy : sortByValues[0].value,
   period : periodValues[0].value,
   isFetching : false,
+  calendar : '',
   startDate : moment().format(dateFormat),
   endDate : moment().format(dateFormat),
   times : []
@@ -43,6 +45,10 @@ function timesheets(state = initialState, action) {
       return Object.assign({}, state, {
         isFetching : false,
         times : action.times
+      })
+    case OPEN_CALENDAR :
+      return Object.assign({}, state, {
+        calendar : action.calendar
       })
     default :
       return state

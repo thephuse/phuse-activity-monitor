@@ -7,6 +7,7 @@ export const SET_DATES = 'SET_DATES'
 export const SET_PERIOD = 'SET_PERIOD'
 export const REQUEST_TIMES = 'REQUEST_TIMES'
 export const RECEIVE_TIMES = 'RECEIVE_TIMES'
+export const OPEN_CALENDAR = 'OPEN_CALENDAR'
 
 export function requestTimes({ startDate, endDate }) {
   return {
@@ -42,6 +43,13 @@ export function setPeriod(period) {
   return {
     type : SET_PERIOD,
     period
+  }
+}
+
+export function openCalendar(calendar = '') {
+  return {
+    type : OPEN_CALENDAR,
+    calendar
   }
 }
 

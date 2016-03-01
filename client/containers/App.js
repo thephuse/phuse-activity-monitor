@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { render } from 'react-dom'
 import moment from 'moment'
 import Radium, { StyleRoot } from 'radium'
-import { sortBy, setDates, fetchTimes } from '../actions'
+import { sortBy, setDates, fetchTimes, openCalendar } from '../actions'
 import sortByValues from '../helpers/sortByValues'
 import sort from '../helpers/sort'
 
@@ -21,6 +21,11 @@ class App extends Component {
     dispatch(fetchTimes())
   }
 
+  removeCalendar(event) {
+    const { dispatch } = this.props
+    dispatch(openCalendar())
+  }
+
   render() {
     const {
       startDate,
@@ -28,11 +33,12 @@ class App extends Component {
       sortByValues,
       isFetching,
       times,
-      period
+      period,
+      calendar
     } = this.props
 
     return (
-      <StyleRoot>
+      <StyleRoot onClick={this.removeCalendar.bind(this)}>
         <nav style={styles.dateNav}>
           <DateFilters {...this.props} />
           <PeriodFilters {...this.props} />
@@ -64,6 +70,7 @@ App.propTypes = {
   startDate : PropTypes.string.isRequired,
   endDate : PropTypes.string.isRequired,
   period : PropTypes.string.isRequired,
+  calendar : PropTypes.string.isRequired,
   sortByValues : PropTypes.array.isRequired,
   sortBy : PropTypes.oneOf(sortByValues.map(i => i.value)),
   times : PropTypes.array.isRequired,
@@ -72,8 +79,15 @@ App.propTypes = {
 }
 
 function mapStateToProps(state) {
-
-  const { sortBy, startDate, endDate, period, isFetching, times } = state.timesheets
+  const {
+    sortBy,
+    startDate,
+    endDate,
+    period,
+    isFetching,
+    times,
+    calendar
+  } = state.timesheets
 
   return {
     sortBy,
@@ -82,6 +96,7 @@ function mapStateToProps(state) {
     period,
     isFetching,
     sortByValues,
+    calendar,
     times : sort(times, sortBy)
   }
 }

@@ -3,19 +3,15 @@ import moment from 'moment'
 import Radium from 'radium'
 import DayPicker, { DateUtils } from 'react-day-picker'
 import { setDates, setPeriod, fetchTimes, openCalendar } from '../actions'
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 import 'react-day-picker/lib/style.css';
 
 class DateFilters extends Component {
 
-  openCalendarPane(calendar, event) {
-    event.stopPropagation()
+  openCalendarPane() {
     const { dispatch } = this.props
-    dispatch(openCalendar(calendar))
-  }
-
-  stopPropagation(event) {
-    event.stopPropagation()
+    dispatch(openCalendar())
   }
 
   handleDayClick(startOrEnd, event, day, modifiers) {
@@ -55,26 +51,24 @@ class DateFilters extends Component {
     }
 
     const desktop = (
-      <ul style={styles.dateInputContainer}>
-        <li>
-          <span onClick={this.openCalendarPane.bind(this, 'start')}>{moment(startDate).format('YYYY-MM-DD')}</span>
-          {calendar === 'start'
-            ? <DayPicker modifiers={startModifiers}
+      <div>
+        <nav style={styles.dateInputContainer} onClick={this.openCalendarPane.bind(this)}>
+          <span>{moment(startDate).format('YYYY-MM-DD')}</span>
+          <span>{moment(endDate).format('YYYY-MM-DD')}</span>
+        </nav>
+        {calendar === true ?
+          <div>
+            <DayPicker modifiers={startModifiers}
               onClick={this.stopPropagation}
               onDayClick={this.handleDayClick.bind(this, 'start')}
               initialMonth={moment(startDate).startOf('month').toDate()} />
-            : null}
-        </li>
-        <li>
-          <span onClick={this.openCalendarPane.bind(this, 'end')}>{moment(endDate).format('YYYY-MM-DD')}</span>
-          {calendar === 'end'
-            ? <DayPicker modifiers={endModifiers}
+            <DayPicker modifiers={endModifiers}
               onClick={this.stopPropagation}
               onDayClick={this.handleDayClick.bind(this, 'end')}
               initialMonth={moment(endDate).startOf('month').toDate()} />
-            : null}
-        </li>
-      </ul>
+          </div>
+        : null}
+      </div>
     )
 
     const mobile = (

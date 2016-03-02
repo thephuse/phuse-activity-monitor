@@ -3,6 +3,8 @@ import { connect } from 'react-redux'
 import { render } from 'react-dom'
 import moment from 'moment'
 import Radium, { StyleRoot } from 'radium'
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+
 import { sortBy, setDates, fetchTimes, openCalendar } from '../actions'
 import sortByValues from '../helpers/sortByValues'
 import sort from '../helpers/sort'
@@ -21,11 +23,6 @@ class App extends Component {
     dispatch(fetchTimes())
   }
 
-  removeCalendar(event) {
-    const { dispatch } = this.props
-    dispatch(openCalendar())
-  }
-
   render() {
     const {
       startDate,
@@ -37,29 +34,30 @@ class App extends Component {
       calendar
     } = this.props
 
+    const noResultsDay = <div style={styles.noResults}>No times have been logged for {moment(startDate).format('MMMM Do, YYYY')}.</div>
+    const noResultsPeriod = <div style={styles.noResults}>No times have been logged between {moment(startDate).format('MMMM Do, YYYY')} and {moment(endDate).format('MMMM Do, YYYY')}.</div>
+    const items = times.map(user => <User key={user.id} {...user}  />)
+
     return (
-      <StyleRoot onClick={this.removeCalendar.bind(this)}>
+      <StyleRoot>
         <nav style={styles.dateNav}>
           <DateFilters {...this.props} />
           <PeriodFilters {...this.props} />
         </nav>
-        <Loader loading={isFetching}>
-          <PeriodStatistics times={times} />
-          {( times.length
-            ? <ul style={styles.userList}>
-                <Sort {...this.props} />
-                {times.map(user => {
-                  return (
-                    <User key={user.id} {...user}  />
-                  )
-                })}
-              </ul>
-            : (period === 'DAY'
-              ? <div style={styles.noResults}>No times have been logged for {moment(startDate).format('MMMM Do, YYYY')}.</div>
-              : <div style={styles.noResults}>No times have been logged between {moment(startDate).format('MMMM Do, YYYY')} and {moment(endDate).format('MMMM Do, YYYY')}.</div>
-            )
-          )}
-        </Loader>
+        <PeriodStatistics times={times} />
+        <ReactCSSTransitionGroup
+          transitionName="fade"
+          transitionAppear={true}
+          transitionAppearTimeout={125}
+          transitionEnterTimeout={125}
+          transitionLeaveTimeout={125}>
+            {
+              isFetching ? <Loader />
+              : times.length
+                ? <ul style={styles.userList}><Sort {...this.props} />{items}</ul>
+                : period === 'DAY' ? noResultsDay : noResultsPeriod
+            }
+        </ReactCSSTransitionGroup>
       </StyleRoot>
     )
   }
@@ -70,7 +68,7 @@ App.propTypes = {
   startDate : PropTypes.string.isRequired,
   endDate : PropTypes.string.isRequired,
   period : PropTypes.string.isRequired,
-  calendar : PropTypes.string.isRequired,
+  calendar : PropTypes.bool.isRequired,
   sortByValues : PropTypes.array.isRequired,
   sortBy : PropTypes.oneOf(sortByValues.map(i => i.value)),
   times : PropTypes.array.isRequired,

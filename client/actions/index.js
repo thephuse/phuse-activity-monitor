@@ -26,9 +26,10 @@ export function receiveTimes(times) {
 }
 
 export function generateDates(state) {
+  const { startDate, endDate } = state.timesheets
   return {
-    startDate : state.timesheets.startDate,
-    endDate : state.timesheets.endDate
+    startDate,
+    endDate
   }
 }
 
@@ -46,10 +47,9 @@ export function setPeriod(period) {
   }
 }
 
-export function openCalendar(calendar = '') {
+export function openCalendar() {
   return {
-    type : OPEN_CALENDAR,
-    calendar
+    type : OPEN_CALENDAR
   }
 }
 
@@ -98,7 +98,7 @@ export function setDates(selectedDate = new Date(), startOrEnd = 'start') {
 
 export function fetchTimes() {
   return (dispatch, getState) => {
-    let dates = requestTimes(generateDates(getState()));
+    let dates = generateDates(getState());
     dispatch(requestTimes(dates))
     return fetch(`//${location.host}${location.pathname}times/${dates.startDate}/${dates.endDate}`, { credentials: 'include' })
       .then(response => response.json())

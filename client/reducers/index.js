@@ -16,7 +16,7 @@ const initialState = {
   sortBy : sortByValues[0].value,
   period : periodValues[0].value,
   isFetching : false,
-  calendar : '',
+  calendar : false,
   startDate : moment().format(dateFormat),
   endDate : moment().format(dateFormat),
   times : []
@@ -48,7 +48,7 @@ function timesheets(state = initialState, action) {
       })
     case OPEN_CALENDAR :
       return Object.assign({}, state, {
-        calendar : action.calendar
+        calendar : true
       })
     default :
       return state

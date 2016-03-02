@@ -1,23 +1,28 @@
+import styles from '../stylus/LoadingSpinner.styl'
+
 import React, { Component, PropTypes } from 'react'
 import { render } from 'react-dom'
-import LoaderSpinner from './LoaderSpinner'
 
 class Loader extends Component {
 
   render() {
-    const {
-      loading,
-      children
-    } = this.props
-
-    return (loading ? <LoaderSpinner /> : <span>{children}</span>)
+    return (
+      <div className={styles.loader}>
+        <div className={styles.base}>
+          <div className={styles.slice}>
+            <div className={styles.bar}/>
+            <div className={styles.center}>
+              <div className={styles.hourglass}>
+                <div className={styles.sandTop} />
+                <div className={styles.sandBottom} />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    )
   }
 
-}
-
-Loader.propTypes = {
-  loading : PropTypes.bool.isRequired,
-  children : PropTypes.array
 }
 
 export default Loader

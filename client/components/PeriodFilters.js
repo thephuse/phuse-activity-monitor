@@ -57,15 +57,14 @@ class PeriodFilters extends Component {
             <li key={periodValue.value} style={styles.buttonListItem}>
               <button
                 onClick={this.setPeriod.bind(this, periodValue.value)}
-                style={[styles.button, styles.buttonDisabled(periodValue.value === period)]}
-                disabled={periodValue.value === period}>
+                style={[styles.button, styles.buttonCurrent(periodValue.value === period)]}>
                 {periodValue.title}
               </button>
             </li>
           )
         })}
         <li style={[styles.buttonListItem, styles.superfluousOnMobile]}>
-          <span style={[styles.button, styles.buttonDisabled('CUSTOM' === period), styles.buttonNotClickable]}>Custom</span>
+          <span style={[styles.button, styles.buttonCurrent('CUSTOM' === period), styles.buttonNotClickable]}>Custom</span>
         </li>
         <li style={styles.buttonListItem} onClick={this.setDate.bind(this, 'add')}>
           <span style={styles.dateSkipper}>Later</span>
@@ -115,17 +114,11 @@ const styles = {
     padding : '4px 10px',
     color : '#2B8CBE'
   },
-  buttonDisabled : function(state) {
-    return (state) ? {
+  buttonCurrent : function(state) {
+    return (state ? {
       background : '#2B8CBE',
       color : '#FFF',
-      ':hover' : {
-        background : '#2B8CBE'
-      }
-    } : {}
-  },
-  buttonNotClickable : {
-    cursor : 'default'
+    } : {})
   },
   dateSkipper : {
     textTransform : 'uppercase',

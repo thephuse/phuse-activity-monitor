@@ -1,99 +1,53 @@
 import React, { Component, PropTypes } from 'react'
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import moment from 'moment'
 import Radium from 'radium'
-import DayPicker, { DateUtils } from 'react-day-picker'
-import { setDates, setPeriod, fetchTimes, openCalendar } from '../actions'
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+
+import Calendars from './Calendars'
+import { openCalendar } from '../actions'
 
 import 'react-day-picker/lib/style.css';
 
 class DateFilters extends Component {
 
-  openCalendarPane() {
+  openCalendar() {
     const { dispatch } = this.props
     dispatch(openCalendar())
-  }
-
-  handleDayClick(startOrEnd, event, day, modifiers) {
-    const { dispatch } = this.props
-    if (modifiers.indexOf("disabled") === -1) {
-      dispatch(setPeriod('CUSTOM'))
-      dispatch(setDates(moment(day), startOrEnd))
-      dispatch(fetchTimes())
-    }
-  }
-
-  setCustomDate(startOrEnd, event) {
-    const { dispatch } = this.props
-    if (event.target && event.target.value) {
-      dispatch(setPeriod('CUSTOM'))
-      dispatch(setDates(moment(event.target.value), startOrEnd))
-      dispatch(fetchTimes())
-    }
   }
 
   render() {
     const {
       startDate,
       endDate,
-      period,
       calendar
     } = this.props
 
-    const startModifiers = {
-      disabled : day => (moment(day).isAfter(endDate, 'day')),
-      selected : day => (moment(day).isSame(startDate, 'day'))
-    }
-
-    const endModifiers = {
-      disabled : day => (moment(day).isBefore(startDate, 'day') || moment(day).isAfter(new Date(), 'day')),
-      selected : day => (moment(day).isSame(endDate, 'day'))
-    }
-
-    const desktop = (
+    return (
       <div>
-        <nav style={styles.dateInputContainer} onClick={this.openCalendarPane.bind(this)}>
-          <span>{moment(startDate).format('YYYY-MM-DD')}</span>
-          <span>{moment(endDate).format('YYYY-MM-DD')}</span>
+        <nav style={styles.dateInputContainer}>
+          <ul>
+            <li onClick={this.openCalendar.bind(this)}>
+              <span>From</span>
+              <span>{moment(startDate).format('YYYY-MM-DD')}</span>
+            </li>
+            <li onClick={this.openCalendar.bind(this)}>
+              <span>To</span>
+              <span>{moment(endDate).format('YYYY-MM-DD')}</span>
+            </li>
+          </ul>
         </nav>
-        {calendar === true ?
-          <div>
-            <DayPicker modifiers={startModifiers}
-              onClick={this.stopPropagation}
-              onDayClick={this.handleDayClick.bind(this, 'start')}
-              initialMonth={moment(startDate).startOf('month').toDate()} />
-            <DayPicker modifiers={endModifiers}
-              onClick={this.stopPropagation}
-              onDayClick={this.handleDayClick.bind(this, 'end')}
-              initialMonth={moment(endDate).startOf('month').toDate()} />
-          </div>
-        : null}
+        <ReactCSSTransitionGroup
+          transitionName="fade"
+          transitionAppear={true}
+          transitionAppearTimeout={125}
+          transitionEnterTimeout={125}
+          transitionLeaveTimeout={125}>
+          {calendar === true ?
+            <Calendars {...this.props} />
+          : null}
+        </ReactCSSTransitionGroup>
       </div>
     )
-
-    const mobile = (
-      <ul style={styles.dateInputContainer}>
-        <li>
-          <input
-            type="date"
-            style={[styles.dateInput, styles.startDate]}
-            value={moment(startDate).format('YYYY-MM-DD')}
-            max={moment(endDate).format('YYYY-MM-DD')}
-            onChange={this.setCustomDate.bind(this, 'start')} />
-        </li>
-        <li>
-          <input
-            type="date"
-            style={[styles.dateInput, styles.endDate]}
-            value={moment(endDate).format('YYYY-MM-DD')}
-            min={moment(startDate).format('YYYY-MM-DD')}
-            max={moment().format('YYYY-MM-DD')}
-            onChange={this.setCustomDate.bind(this, 'end')} />
-        </li>
-      </ul>
-    )
-
-    return desktop
   }
 
 }
@@ -101,7 +55,6 @@ class DateFilters extends Component {
 DateFilters.propTypes = {
   startDate : PropTypes.string.isRequired,
   endDate : PropTypes.string.isRequired,
-  period : PropTypes.string.isRequired,
   dispatch : PropTypes.func.isRequired
 }
 

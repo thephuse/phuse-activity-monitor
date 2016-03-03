@@ -6,7 +6,8 @@ import {
   SORT_BY,
   REQUEST_TIMES,
   RECEIVE_TIMES,
-  OPEN_CALENDAR
+  OPEN_CALENDAR,
+  CLOSE_CALENDAR
 } from '../actions'
 import sortByValues from '../helpers/sortByValues'
 import periodValues from '../helpers/periodValues'
@@ -49,6 +50,10 @@ function timesheets(state = initialState, action) {
     case OPEN_CALENDAR :
       return Object.assign({}, state, {
         calendar : true
+      })
+    case CLOSE_CALENDAR :
+      return Object.assign({}, state, {
+        calendar : false
       })
     default :
       return state

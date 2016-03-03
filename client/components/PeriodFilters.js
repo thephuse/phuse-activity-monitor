@@ -1,10 +1,15 @@
 import React, { Component, PropTypes } from 'react'
 import moment from 'moment'
 import Radium from 'radium'
-import { setDates, setPeriod, fetchTimes } from '../actions'
+import { setDates, setPeriod, fetchTimes, openCalendar } from '../actions'
 import periodValues from '../helpers/periodValues'
 
 class PeriodFilters extends Component {
+
+  openCalendar() {
+    const { dispatch } = this.props
+    dispatch(openCalendar())
+  }
 
   setPeriod(value) {
     const { dispatch } = this.props
@@ -64,7 +69,11 @@ class PeriodFilters extends Component {
           )
         })}
         <li style={[styles.buttonListItem, styles.superfluousOnMobile]}>
-          <span style={[styles.button, styles.buttonCurrent('CUSTOM' === period), styles.buttonNotClickable]}>Custom</span>
+          <button
+            onClick={this.openCalendar.bind(this)}
+            style={[styles.button, styles.buttonCurrent('CUSTOM' === period), styles.buttonNotClickable]}>
+            Custom
+          </button>
         </li>
         <li style={styles.buttonListItem} onClick={this.setDate.bind(this, 'add')}>
           <span style={styles.dateSkipper}>Later</span>

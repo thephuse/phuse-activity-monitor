@@ -5,13 +5,28 @@
 }
 
 html {
-  overflow-y: scroll;
+  overflow-x: hidden;
 }
 
+html,
 body {
   margin: 0;
+  width: 100%;
+  height: 100%;
 }
 
 input[type="date"]::-webkit-inner-spin-button {
   display: none;
+}
+
+.DayPicker:focus {
+  outline: none;
+}
+
+.DayPicker-Day--selected {
+  background-color: #2b8cbe !important;
+}
+
+.DayPicker-Day--outside.DayPicker-Day--selected {
+  background-color: #eff1f1 !important;
 }

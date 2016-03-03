@@ -8,6 +8,14 @@ html {
   overflow-x: hidden;
 }
 
+html.no-overflow {
+  overflow: hidden;
+}
+
+html.no-overflow > body {
+  overflow: hidden;
+}
+
 html,
 body {
   margin: 0;

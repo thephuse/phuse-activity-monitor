@@ -52,6 +52,7 @@ class Calendars extends Component {
         <ul style={styles.dayPickers}>
           <li style={styles.dayPickerItem}>
             <div style={styles.dayPicker}>
+              <span style={styles.dayPickerHeader}>From</span>
               <DayPicker modifiers={startModifiers}
                 onClick={this.stopPropagation}
                 onDayClick={this.handleDayClick.bind(this, 'start')}
@@ -60,6 +61,7 @@ class Calendars extends Component {
           </li>
           <li style={styles.dayPickerItem}>
             <div style={styles.dayPicker}>
+              <span style={styles.dayPickerHeader}>To</span>
               <DayPicker modifiers={endModifiers}
                 onClick={this.stopPropagation}
                 onDayClick={this.handleDayClick.bind(this, 'end')}
@@ -91,31 +93,49 @@ const styles = {
     background : 'rgba(255,255,255,0.96)',
     zIndex : 3,
     textAlign : 'center',
-    overflow : 'scroll',
-    WebkitOverflowScrolling : 'touch'
+    overflowY : 'auto',
+    boxSizing : 'border-box',
+    WebkitOverflowScrolling : 'touch',
+    '@media (max-width: 640px)' : {
+      paddingTop : 50,
+      paddingBottom : 20
+    }
   },
   close : {
-    display : 'inline-block',
-    fontSize : 12,
-    width : '6em',
-    height : '6em',
-    lineHeight : '6em',
-    position : 'absolute',
-    top : '50%',
-    left : '50%',
-    transform : 'translateX(-50%)',
-    zIndex : 1,
-    textTransform : 'uppercase',
-    fontWeight : 200,
-    background : '#F3F3F3',
-    transition : 'background 0.125s, color 0.125s',
-    color : '#666',
-    borderRadius : '50%',
+    background : 'white',
+    color : '#2B8CBE',
     cursor : 'pointer',
-    letterSpacing : 0.5,
-    ':hover' : {
-      background : '#2B8CBE',
-      color : '#FFF'
+    userSelect : 'none',
+    fontSize : 16,
+    fontWeight : 200,
+    '@media (min-width: 641px)' : {
+      display : 'inline-block',
+      border : '1px solid #2B8CBE',
+      width : '4.5em',
+      height : '4.5em',
+      lineHeight : '4.5em',
+      position : 'absolute',
+      top : '50%',
+      left : '50%',
+      transform : 'translate(-50%,15%)',
+      zIndex : 1,
+      transition : 'background 0.125s, color 0.125s',
+      borderRadius : '50%',
+      letterSpacing : 0.5,
+      ':hover' : {
+        background : '#2B8CBE',
+        color : '#FFF'
+      }
+    },
+    '@media (max-width: 640px)' : {
+      position : 'fixed',
+      width : '100%',
+      height : 40,
+      lineHeight : '40px',
+      left : 0,
+      top : 0,
+      zIndex : 5,
+      borderBottom : '1px solid #dfdfdf'
     }
   },
   dayPickers : {
@@ -126,6 +146,11 @@ const styles = {
       position : 'relative',
       top : '50vh',
       transform : 'translateY(-50%)'
+    },
+    '@media (min-width: 641px) and (max-height: 400px)' : {
+      top : 0,
+      transform : 'none',
+      padding : '40px 0'
     }
   },
   dayPickerItem : {
@@ -144,5 +169,15 @@ const styles = {
   dayPicker : {
     display : 'inline-block',
     maxWidth : 280
+  },
+  dayPickerHeader : {
+    fontSize : 28,
+    fontWeight : 100,
+    color : '#888',
+    letterSpacing : 0.5,
+    display : 'block',
+    margin : '0 15px',
+    paddingBottom : 12,
+    borderBottom : '1px solid #cfcfcf'
   }
 }

@@ -100,10 +100,15 @@ const styles = {
     listStyle : 'none',
     maxWidth : 760,
     padding : '0 20px',
-    margin : '0 auto',
     alignItems : 'center',
     justifyContent : 'space-between',
-    boxSizing : 'border-box'
+    boxSizing : 'border-box',
+    '@media (min-width: 569px)' : {
+      margin : '0 auto 30px'
+    },
+    '@media (max-width: 568px)' : {
+      margin : '0 auto 15px'
+    }
   },
   buttonListItem : {
     listStyle : 'none',

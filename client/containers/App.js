@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { render } from 'react-dom'
 import moment from 'moment'
 import Radium, { StyleRoot } from 'radium'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
@@ -104,14 +103,13 @@ export default connect(mapStateToProps)(Radium(App))
 const styles = {
   dateNav : {
     borderBottom : '1px solid #efefef',
-    padding : '30px 0',
     margin : '0 0 30px',
     background : '#f9f9f9'
   },
   userList : {
     listStyle : 'none',
     maxWidth : 720,
-    margin : '0 auto',
+    margin : '0 auto 30px',
     padding : 0
   },
   noResults : {

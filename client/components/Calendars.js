@@ -90,7 +90,7 @@ const styles = {
     left : 0,
     width : '100vw',
     height : '100vh',
-    background : 'rgba(255,255,255,0.96)',
+    background : 'white',
     zIndex : 3,
     textAlign : 'center',
     overflowY : 'auto',

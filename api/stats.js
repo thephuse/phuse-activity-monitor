@@ -29,7 +29,6 @@ const processTimesheets = function(billableFlag) {
   let billable = (billableFlag === true) ? 'billable_' : '';
   return function(from, to, iter, done) {
     return function(timesheets) {
-      //iter.user[`${billable}timesheets`] = timesheets;
       iter.user[`${billable}total`] = (timesheets.length) ? timesheets.map(getHours).reduce(totalHours) : 0;
       done();
     }

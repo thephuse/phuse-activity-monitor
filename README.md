@@ -48,7 +48,7 @@ In order to deploy the server locally, you'll need to have a config file at `./c
 
 The app will look either to this file or to **identically named environment variables** for these settings. Most can be garnered from Harvest itself, after setting up an OAuth 2.0 app using its administrative features. The user credentials will need to be those of a user who has full access to all of Harvest for your company (usually the CEO or HR manager).
 
-The use of environment variables rather than a configuration JSON file is recommended for public-facing instances of the app, as
+The use of environment variables rather than a configuration JSON file is recommended for public-facing instances of the app.
 
 ## Client: React + Redux ##
 

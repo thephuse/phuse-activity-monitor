@@ -20,7 +20,7 @@ const authCredentials = {
 };
 
 const authRedirect = {
-  successRedirect: '/',
+  successRedirect: 'pam://auth',
   failureRedirect: '/forbidden'
 }
 

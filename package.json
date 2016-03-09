@@ -7,7 +7,8 @@
     "node": ">=5.0.0"
   },
   "scripts": {
-    "start": "node server"
+    "start": "node server",
+    "watch": "nodemon server.js --watch api --watch server.js"
   },
   "repository": {
     "type": "git",

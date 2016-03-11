@@ -33,15 +33,13 @@ passport.use(HARVEST, new OAuth2Strategy(auth.authCredentials, auth.verify));
 passport.serializeUser(auth.serializeDeserialize);
 passport.deserializeUser(auth.serializeDeserialize);
 
-app.get('/', auth.ensureAuthenticated, (req, res) => {
-  res.render('index', {
-    isProduction : (process.env.NODE_ENV && process.env.NODE_ENV === 'production')
-  });
-});
+app.get('/', auth.ensureEndpointAuthenticated, (req, res) => { res.json({ "success": true }) });
 
 app.get('/auth/harvest', passport.authenticate(HARVEST));
 
-app.get('/auth/harvest/callback', passport.authenticate(HARVEST), (req, res) => { res.redirect(`pam://auth?cookie=${req.headers.cookie}`) });
+app.get('/auth/harvest/callback', passport.authenticate(HARVEST), (req, res) => { res.redirect('/pam'); });
+
+app.get('/authenticated', (req, res) => { res.redirect(`pam://auth?cookie=${req.headers.cookie}`); });
 
 app.get('/forbidden', (req, res) => { res.status(403).send('Access Forbidden'); });
 

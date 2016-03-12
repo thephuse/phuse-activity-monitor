@@ -1,6 +1,6 @@
 'use strict';
 
-const newrelic = require('newrelic');
+//const newrelic = require('newrelic');
 const express = require('express');
 const session = require('express-session');
 const passport = require('passport');
@@ -37,7 +37,7 @@ app.get('/', auth.ensureEndpointAuthenticated, (req, res) => { res.json({ "succe
 
 app.get('/auth/harvest', passport.authenticate(HARVEST));
 
-app.get('/auth/harvest/callback', passport.authenticate(HARVEST), (req, res) => { res.redirect('/pam'); });
+app.get('/auth/harvest/callback', passport.authenticate(HARVEST), (req, res) => { res.redirect('/authenticated'); });
 
 app.get('/authenticated', (req, res) => { res.redirect(`pam://auth?cookie=${req.headers.cookie}`); });
 

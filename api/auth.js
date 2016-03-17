@@ -37,7 +37,7 @@ const ensureAuthenticated = function(req, res, next) {
 };
 
 const ensureEndpointAuthenticated = function(req, res, next) {
-  return (req.isAuthenticated()) ? next() : res.status(403).send('Access Forbidden');
+  return (req.isAuthenticated()) ? next() : res.status(403).json({"success": false, "reason": "Access Forbidden", "cookie": req.headers.cookie});
 };
 
 const logout = function(req, res) {

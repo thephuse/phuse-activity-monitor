@@ -43,8 +43,6 @@ app.get('/authenticated', (req, res) => { res.redirect(`/authenticated/success/?
 
 app.get('/authenticated/success', (req, res) => { res.json({"success": true}) });
 
-app.get('/forbidden', (req, res) => { res.status(403).json({"success": false, "reason": "Access Forbidden", "cookie": req.headers.cookie}); });
-
 app.get('/times/:from/:to', auth.ensureEndpointAuthenticated, stats.times);
 
 app.get('/logout', auth.logout);

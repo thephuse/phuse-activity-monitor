@@ -39,7 +39,7 @@ app.get('/auth/harvest', passport.authenticate(HARVEST));
 
 app.get('/auth/harvest/callback', passport.authenticate(HARVEST), (req, res) => { res.redirect('/authenticated'); });
 
-app.get('/authenticated', (req, res) => { res.redirect(`pam://auth?cookie=${req.headers.cookie}`); });
+app.get('/authenticated', (req, res) => { res.json({ "success": true, "cookie" : req.headers.cookie }); });
 
 app.get('/forbidden', (req, res) => { res.status(403).send('Access Forbidden'); });
 

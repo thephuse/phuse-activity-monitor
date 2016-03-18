@@ -81,7 +81,6 @@ const tasks = function(req, res) {
 };
 
 const times = function(req, res) {
-  res.header('Access-Control-Allow-Credentials', false);
   res.type('application/json');
   harvest.get(`people`)(function(people) {
     let activePeople = people.filter(getActivePeople);

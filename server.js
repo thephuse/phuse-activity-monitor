@@ -37,9 +37,7 @@ app.get('/', auth.ensureEndpointAuthenticated, (req, res) => { res.json({"succes
 
 app.get('/auth/harvest', passport.authenticate(HARVEST));
 
-app.get('/auth/harvest/callback', passport.authenticate(HARVEST), (req, res) => { res.redirect('/authenticated'); });
-
-app.get('/authenticated', (req, res) => { res.redirect(`/authenticated/success/?cookie=${req.headers.cookie}`) });
+app.get('/auth/harvest/callback', passport.authenticate(HARVEST), (req, res) => { res.redirect('/authenticated/success'); });
 
 app.get('/authenticated/success', (req, res) => { res.json({"success": true}) });
 

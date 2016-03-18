@@ -32,10 +32,6 @@ const serializeDeserialize = function(user, done) {
   done(null, user);
 };
 
-const ensureAuthenticated = function(req, res, next) {
-  return (req.isAuthenticated()) ? next() : res.redirect('/auth/harvest');
-};
-
 const ensureEndpointAuthenticated = function(req, res, next) {
   return (req.isAuthenticated()) ? next() : res.status(403).json({"success": false, "reason": "Access Forbidden", "cookie": req.headers.cookie});
 };
@@ -51,7 +47,6 @@ module.exports = {
   authRedirect,
   verify,
   serializeDeserialize,
-  ensureAuthenticated,
   ensureEndpointAuthenticated,
   logout
 };

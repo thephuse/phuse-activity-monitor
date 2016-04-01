@@ -29,10 +29,12 @@
     "cookie-parser": "^1.4.1",
     "express": "^4.13.4",
     "express-session": "^1.13.0",
+    "jade": "^1.11.0",
     "newrelic": "^1.25.3",
     "node-cache": "^3.2.0",
     "passport": "^0.3.2",
     "passport-oauth2": "^1.2.0",
+    "qr-encode": "^0.3.0",
     "request": "^2.67.0"
   }
 }

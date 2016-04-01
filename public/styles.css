@@ -1,0 +1,63 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:100);
+
+* {
+  font-family: 'Roboto', Helvetica, Arial, sans-serif;
+  font-weight: 100;
+}
+
+html {
+  overflow-x: hidden;
+}
+
+html.no-overflow {
+  overflow: hidden;
+}
+
+html.no-overflow > body {
+  overflow: hidden;
+}
+
+html,
+body {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.wrapper {
+  white-space: nowrap;
+  position: absolute;
+  text-align: center;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.wrapper > *,
+.wrapper:before {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.wrapper:before {
+  height: 100%;
+  width: 0;
+  overflow: hidden;
+  content: "";
+}
+
+h1 {
+  font-size: 24px;
+  margin: 0 0 40px;
+}
+
+footer {
+  display: block;
+}
+
+.logo {
+  height: auto;
+  margin-top: 35px;
+}

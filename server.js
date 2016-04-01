@@ -7,6 +7,7 @@ const passport = require('passport');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const OAuth2Strategy = require('passport-oauth2');
+const qr = require('qr-encode')
 
 const env = require('./api/env');
 const auth = require('./api/auth');
@@ -33,7 +34,11 @@ passport.use(HARVEST, new OAuth2Strategy(auth.authCredentials, auth.verify));
 passport.serializeUser(auth.serializeDeserialize);
 passport.deserializeUser(auth.serializeDeserialize);
 
-app.get('/', auth.ensureEndpointAuthenticated, (req, res) => { res.json({"success": true}) });
+const settingsQr = qr(new Buffer(JSON.stringify(auth.authCredentials)).toString('base64'), {type: 20, size: 3, level: 'Q'});
+
+app.get('/', (req, res) => {
+  res.render('index', { qr : settingsQr })
+});
 
 app.get('/auth/harvest', passport.authenticate(HARVEST));
 

@@ -14,7 +14,7 @@ const sessionParams = {
 const authCredentials = {
   authorizationURL: `${env('HARVEST_WEBADDRESS')}/oauth2/authorize`,
   callbackURL: `${env('ROOT_URL')}/auth/harvest/callback`,
-  tokenURL: `${env('HARVEST_WEBADDRESS')}/oauth2/authorize`,
+  tokenURL: `${env('HARVEST_WEBADDRESS')}/oauth2/token`,
   clientID: env('HARVEST_CLIENTID'),
   clientSecret: env('HARVEST_SECRET')
 };

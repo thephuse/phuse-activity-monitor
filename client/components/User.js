@@ -2,36 +2,34 @@ import React, { Component, PropTypes } from 'react'
 import Radium from 'radium'
 import md5 from 'md5'
 
-class User extends Component {
+function User(props) {
 
-  render() {
-    const {
-      id,
-      email,
-      first_name,
-      last_name,
-      total,
-      billable_total
-    } = this.props
+  const {
+    id,
+    email,
+    first_name,
+    last_name,
+    total,
+    billable_total
+  } = props
 
-    let gravatar = `https://www.gravatar.com/avatar/${md5(email)}`
+  const gravatar = `https://www.gravatar.com/avatar/${md5(email)}`
 
-    return (
-      <li style={styles.listItem}>
-        <span style={Object.assign({}, styles.inlineUserDetail, styles.avatarContainer)}>
-          <img style={styles.avatar} src={gravatar} alt={`${first_name} ${last_name}`} />
-        </span>
-        <span style={[styles.inlineUserDetail, styles.name]}>{first_name} {last_name}</span>
-        <span style={[styles.inlineUserDetail, styles.totalHours]}>{total.toFixed(2)}</span>
-        <span style={[styles.inlineUserDetail, styles.billableHours]}>{billable_total.toFixed(2)}</span>
-        <span style={[styles.inlineUserDetail, styles.percentage]}>
-          <span style={[styles.percentageBar.base, styles.percentageBar.billable, { width : `${Math.round(billable_total/total*100)}%` }]} />
-          <span style={[styles.percentageBar.base, styles.percentageBar.unbillable, { width : `${(100 - Math.round(billable_total/total*100))}%` }]} />
-          <span style={styles.percentageBar.figure}>{Math.round(billable_total/total*100)}%</span>
-        </span>
-      </li>
-    )
-  }
+  return (
+    <li style={styles.listItem}>
+      <span style={Object.assign({}, styles.inlineUserDetail, styles.avatarContainer)}>
+        <img style={styles.avatar} src={gravatar} alt={`${first_name} ${last_name}`} />
+      </span>
+      <span style={[styles.inlineUserDetail, styles.name]}>{first_name} {last_name}</span>
+      <span style={[styles.inlineUserDetail, styles.totalHours]}>{total.toFixed(2)}</span>
+      <span style={[styles.inlineUserDetail, styles.billableHours]}>{billable_total.toFixed(2)}</span>
+      <span style={[styles.inlineUserDetail, styles.percentage]}>
+        <span style={[styles.percentageBar.base, styles.percentageBar.billable, { width : `${Math.round(billable_total/total*100)}%` }]} />
+        <span style={[styles.percentageBar.base, styles.percentageBar.unbillable, { width : `${(100 - Math.round(billable_total/total*100))}%` }]} />
+        <span style={styles.percentageBar.figure}>{Math.round(billable_total/total*100)}%</span>
+      </span>
+    </li>
+  )
 
 }
 
